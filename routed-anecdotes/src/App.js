@@ -67,7 +67,6 @@ const CreateNew = (props) => {
   const [content, resetContent] = useField('text');
   const [author, resetAuthor] = useField('text');
   const [info, resetInfo] = useField('text');
-  console.log(resetContent, resetAuthor, resetInfo);
   const handleSubmit = (e) => {
     e.preventDefault();
     props.addNew({
