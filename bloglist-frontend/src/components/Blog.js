@@ -17,7 +17,9 @@ const Blog = ({ blog, handleEditBlog, handleRemoveBlog, username }) => {
     handleEditBlog(editedBlog, { ...blog, likes: blog.likes + 1 });
   };
   const removeBlog = async () => {
-    const confirmMessage = `Remove Blog: ${blog.title} by ${blog.author || 'anon'}?`;
+    const confirmMessage = `Remove Blog: ${blog.title} by ${
+      blog.author || 'anon'
+    }?`;
     if (!window.confirm(confirmMessage)) return;
     handleRemoveBlog(blog);
   };
@@ -31,19 +33,23 @@ const Blog = ({ blog, handleEditBlog, handleRemoveBlog, username }) => {
           {expanded ? 'hide' : 'view'}
         </button>
       </p>
-      {expanded &&
+      {expanded && (
         <div>
           <p>{blog.url}</p>
           <p>
             <span>likes: {blog.likes}</span>
-            <button onClick={increaseLikes} data-cy="blog-like-button">like</button>
+            <button onClick={increaseLikes} data-cy="blog-like-button">
+              like
+            </button>
           </p>
           <p>{blog.user.name}</p>
-          {blog.user.username === username &&
-            <button onClick={removeBlog} data-cy="blog-remove-button">remove</button>
-          }
+          {blog.user.username === username && (
+            <button onClick={removeBlog} data-cy="blog-remove-button">
+              remove
+            </button>
+          )}
         </div>
-      }
+      )}
     </div>
   );
 };

@@ -5,11 +5,7 @@ const Notification = ({ message }) => {
     return null;
   }
   const type = message.type === 'error' ? 'note error' : 'note success';
-  return (
-    <div className={type}>
-      {message.content}
-    </div>
-  );
+  return <div className={type}>{message.content}</div>;
 };
 
 Notification.propTypes = {

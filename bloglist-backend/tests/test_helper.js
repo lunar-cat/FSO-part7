@@ -22,7 +22,12 @@ const initialBlogs = [
 ];
 
 const nonExistingId = async () => {
-  const blog = new Blog({ title: 'willrermovethissoon', url: 'url', likes: 33, author: 'deleted' });
+  const blog = new Blog({
+    title: 'willrermovethissoon',
+    url: 'url',
+    likes: 33,
+    author: 'deleted'
+  });
   await blog.save();
   await blog.remove();
 
@@ -31,12 +36,12 @@ const nonExistingId = async () => {
 
 const blogsInDb = async () => {
   const blogs = await Blog.find({});
-  return blogs.map(blog => blog.toJSON());
+  return blogs.map((blog) => blog.toJSON());
 };
 
 const usersInDb = async () => {
   const users = await User.find({});
-  return users.map(user => user.toJSON());
+  return users.map((user) => user.toJSON());
 };
 
 const createUser = async () => {
@@ -47,9 +52,9 @@ const createUser = async () => {
 };
 
 const createBlogs = async (userID) => {
-  const blogsWithUser = initialBlogs.map(blog => ({ ...blog, user: userID }));
+  const blogsWithUser = initialBlogs.map((blog) => ({ ...blog, user: userID }));
   const createdBlogs = await Blog.insertMany(blogsWithUser);
-  const blogsIDs = createdBlogs.map(blog => blog._id.toString());
+  const blogsIDs = createdBlogs.map((blog) => blog._id.toString());
   const user = await User.findById(userID);
   user.blogs = blogsIDs;
   await user.save();

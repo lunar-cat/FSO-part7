@@ -9,10 +9,9 @@ const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
 const middleware = require('./utils/middleware');
 
-mongoose
-  .connect(config.MONGODB_URI)
+mongoose.connect(config.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.log(err));
+  .catch(err => console.log(err));
 
 const app = express();
 

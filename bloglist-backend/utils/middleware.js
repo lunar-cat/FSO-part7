@@ -37,13 +37,15 @@ const tokenExtractor = (req, res, next) => {
 
 const userExtractor = async (req, res, next) => {
   req.user = null;
-  if (!req.token && req.method === 'GET') { // si viene sin token en GET no lo necesita
+  if (!req.token && req.method === 'GET') {
+    // si viene sin token en GET no lo necesita
     return next();
   } else if (!req.token && req.method !== 'GET') {
     return res.status(401).json({ error: 'token missing or invalid' });
   }
   const decodedToken = jwt.verify(req.token, process.env.SECRET);
-  if (!decodedToken.id) { // en cambio si viene pero falla el verify
+  if (!decodedToken.id) {
+    // en cambio si viene pero falla el verify
     return res.status(401).json({ error: 'token missing or invalid' });
   }
   const user = await User.findById(decodedToken.id);

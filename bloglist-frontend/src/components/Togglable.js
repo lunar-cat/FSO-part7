@@ -7,9 +7,7 @@ const Togglable = (props) => {
       </div>
     );
   }
-  return (
-    <button onClick={props.toggleOpen}>{props.buttonLabel}</button>
-  );
+  return <button onClick={props.toggleOpen}>{props.buttonLabel}</button>;
 };
 
 export default Togglable;

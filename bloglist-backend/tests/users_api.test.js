@@ -16,10 +16,7 @@ describe('when creating a user', () => {
     const newUser = {
       username: 'pepito'
     };
-    await api
-      .post('/api/users')
-      .send(newUser)
-      .expect(400);
+    await api.post('/api/users').send(newUser).expect(400);
 
     const usersAtEnd = await helper.usersInDb();
     expect(usersAtStart).toHaveLength(usersAtEnd.length);
@@ -29,10 +26,7 @@ describe('when creating a user', () => {
     const newUser = {
       password: 'pepito1234'
     };
-    await api
-      .post('/api/users')
-      .send(newUser)
-      .expect(400);
+    await api.post('/api/users').send(newUser).expect(400);
 
     const usersAtEnd = await helper.usersInDb();
     expect(usersAtStart).toHaveLength(usersAtEnd.length);
@@ -43,10 +37,7 @@ describe('when creating a user', () => {
       username: 'ab',
       password: 'pepito1234'
     };
-    await api
-      .post('/api/users')
-      .send(newUser)
-      .expect(400);
+    await api.post('/api/users').send(newUser).expect(400);
 
     const usersAtEnd = await helper.usersInDb();
     expect(usersAtStart).toHaveLength(usersAtEnd.length);
@@ -57,10 +48,7 @@ describe('when creating a user', () => {
       username: 'pepito',
       password: 'ab'
     };
-    await api
-      .post('/api/users')
-      .send(newUser)
-      .expect(400);
+    await api.post('/api/users').send(newUser).expect(400);
 
     const usersAtEnd = await helper.usersInDb();
     expect(usersAtStart).toHaveLength(usersAtEnd.length);
@@ -68,10 +56,7 @@ describe('when creating a user', () => {
   test('and username is not unique, returns 400', async () => {
     const usersAtStart = await helper.usersInDb();
 
-    await api
-      .post('/api/users')
-      .send(initialUser)
-      .expect(400);
+    await api.post('/api/users').send(initialUser).expect(400);
 
     const usersAtEnd = await helper.usersInDb();
     expect(usersAtStart).toHaveLength(usersAtEnd.length);

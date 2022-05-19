@@ -19,27 +19,38 @@ const BlogForm = ({ handleCreateBlog, closeForm }) => {
       <h3>Create new</h3>
       <form onSubmit={handleSubmit} data-cy="blog-form">
         <div>
-          <label htmlFor="title">
-            Title
-          </label>
-          <input type="text" id="title" value={title} data-cy="blog-title"
-            onChange={({ target }) => setTitle(target.value)} />
+          <label htmlFor="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            value={title}
+            data-cy="blog-title"
+            onChange={({ target }) => setTitle(target.value)}
+          />
         </div>
         <div>
-          <label htmlFor="author">
-            Author
-          </label>
-          <input type="text" id="author" value={author} data-cy="blog-author"
-            onChange={({ target }) => setAuthor(target.value)} />
+          <label htmlFor="author">Author</label>
+          <input
+            type="text"
+            id="author"
+            value={author}
+            data-cy="blog-author"
+            onChange={({ target }) => setAuthor(target.value)}
+          />
         </div>
         <div>
-          <label htmlFor="url">
-            URL
-          </label>
-          <input type="text" id="url" value={url} data-cy="blog-url"
-            onChange={({ target }) => setUrl(target.value)} />
+          <label htmlFor="url">URL</label>
+          <input
+            type="text"
+            id="url"
+            value={url}
+            data-cy="blog-url"
+            onChange={({ target }) => setUrl(target.value)}
+          />
         </div>
-        <button type="submit" data-cy="blog-button">Create</button>
+        <button type="submit" data-cy="blog-button">
+          Create
+        </button>
       </form>
     </section>
   );

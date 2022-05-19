@@ -2,10 +2,8 @@ const blogsRouter = require('express').Router();
 const Blog = require('../models/blog');
 
 blogsRouter.get('/', async (req, res) => {
-  const blogs = await Blog.find({}).populate('user', {
-    blogs: 0,
-    passwordHash: 0
-  });
+  const blogs = await Blog.find({})
+    .populate('user', { blogs: 0, passwordHash: 0 });
   res.json(blogs);
 });
 
@@ -34,21 +32,13 @@ blogsRouter.delete('/:id', async (req, res) => {
   if (!blog) {
     return res.status(400).json({ error: 'blog id doesnt exists' });
   }
-  console.log(
-    'userID',
-    user._id.toString(),
-    '\nblogID',
-    blog.user._id.toString()
-  );
+  console.log('userID', user._id.toString(), '\nblogID', blog.user._id.toString());
   if (user._id.toString() !== blog.user._id.toString()) {
-    return res
-      .status(403)
+    return res.status(403)
       .json({ error: 'blog user and auth user doesnt match' });
   }
   await Blog.findByIdAndDelete(req.params.id);
-  user.blogs = user.blogs.filter(
-    (b) => b._id.toString() !== blog._id.toString()
-  );
+  user.blogs = user.blogs.filter(b => b._id.toString() !== blog._id.toString());
   await user.save();
   return res.status(204).end();
 });
@@ -60,11 +50,8 @@ blogsRouter.put('/:id', async (req, res) => {
     e.name = 'ValidationError';
     throw e;
   }
-  const updatedBlog = await Blog.findByIdAndUpdate(
-    req.params.id,
-    { likes },
-    { new: true }
-  );
+  const updatedBlog = await Blog
+    .findByIdAndUpdate(req.params.id, { likes }, { new: true });
   res.json(updatedBlog);
 });
 

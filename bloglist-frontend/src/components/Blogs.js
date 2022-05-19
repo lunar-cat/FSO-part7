@@ -4,8 +4,12 @@ import Togglable from './Togglable';
 import { useState } from 'react';
 
 const Blogs = ({
-  blogs, username, handleLogout, handleCreateBlog,
-  handleEditBlog, handleRemoveBlog
+  blogs,
+  username,
+  handleLogout,
+  handleCreateBlog,
+  handleEditBlog,
+  handleRemoveBlog
 }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const toggleFormOpen = () => setIsFormOpen(!isFormOpen);
@@ -28,12 +32,15 @@ const Blogs = ({
       </Togglable>
       {blogs
         .sort((a, b) => b.likes - a.likes)
-        .map(blog =>
-          <Blog key={blog.id} blog={blog}
+        .map((blog) => (
+          <Blog
+            key={blog.id}
+            blog={blog}
             handleEditBlog={handleEditBlog}
             handleRemoveBlog={handleRemoveBlog}
-            username={username} />
-        )}
+            username={username}
+          />
+        ))}
     </div>
   );
 };

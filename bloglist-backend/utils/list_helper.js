@@ -9,7 +9,7 @@ const favoriteBlog = (blogs) => {
   if (blogs.length === 1) return blogs[0];
   let favBlog;
   let favLikes = 0;
-  blogs.forEach(blog => {
+  blogs.forEach((blog) => {
     if (blog.likes > favLikes) {
       favBlog = blog;
       favLikes = blog.likes;
@@ -28,7 +28,7 @@ const mostBlogs = (blogs) => {
   const authors = {};
   let maxAuthor;
   let maxBlogs = 1;
-  blogs.forEach(blog => {
+  blogs.forEach((blog) => {
     const initAmount = authors[blog.author] || 0;
     const newAmount = initAmount + 1;
     authors[blog.author] = newAmount;
@@ -50,7 +50,7 @@ const mostLikes = (blogs) => {
   const authors = {};
   let maxAuthor;
   let maxLikes = 0;
-  blogs.forEach(blog => {
+  blogs.forEach((blog) => {
     const initAmount = authors[blog.author] || 0;
     const newAmount = initAmount + blog.likes;
     authors[blog.author] = newAmount;

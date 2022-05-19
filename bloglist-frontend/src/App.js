@@ -18,8 +18,9 @@ const App = () => {
   };
   // fetch blogs
   useEffect(() => {
-    blogService.getAll()
-      .then(blogs => setBlogs(blogs))
+    blogService
+      .getAll()
+      .then((blogs) => setBlogs(blogs))
       .catch((e) => {
         setMessage('Error fetching blogs', 'error');
         console.log(e);
@@ -72,7 +73,7 @@ const App = () => {
   const handleEditBlog = async (editedBlog, blog) => {
     try {
       await blogService.modify(editedBlog, blog.id);
-      const updatedBlogs = blogs.map(b => b.id !== blog.id ? b : blog);
+      const updatedBlogs = blogs.map((b) => (b.id !== blog.id ? b : blog));
       setBlogs(updatedBlogs);
     } catch (e) {
       if (e.message) {
@@ -84,7 +85,7 @@ const App = () => {
   const handleRemoveBlog = async (blog) => {
     try {
       await blogService.remove(blog.id);
-      const updatedBlogs = blogs.filter(b => b.id !== blog.id);
+      const updatedBlogs = blogs.filter((b) => b.id !== blog.id);
       setBlogs(updatedBlogs);
       setMessage(`Removed ${blog.title} blog.`, 'success');
     } catch (e) {
@@ -99,7 +100,8 @@ const App = () => {
       <>
         <Notification message={notification} />
         <LoginForm
-          username={username} password={password}
+          username={username}
+          password={password}
           handleLogin={handleLogin}
           handleUsername={({ target }) => setUsername(target.value)}
           handlePassword={({ target }) => setPassword(target.value)}
@@ -111,7 +113,8 @@ const App = () => {
       <>
         <Notification message={notification} />
         <Blogs
-          blogs={blogs} username={user.username}
+          blogs={blogs}
+          username={user.username}
           handleLogout={handleLogout}
           handleCreateBlog={handleCreateBlog}
           handleEditBlog={handleEditBlog}

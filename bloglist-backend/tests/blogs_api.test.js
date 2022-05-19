@@ -37,7 +37,10 @@ describe('get blogs', () => {
     const response = await api.get('/api/blogs');
     const blog = response.body[0];
 
-    expect(blog).toHaveProperty('user', { id: helper.userID, username: 'root' });
+    expect(blog).toHaveProperty('user', {
+      id: helper.userID,
+      username: 'root'
+    });
   });
 });
 
@@ -60,7 +63,7 @@ describe('post blog', () => {
     const blogsAtEnd = await helper.blogsInDb();
     expect(blogsAtEnd).toHaveLength(initialBlogs.length + 1);
 
-    const titles = blogsAtEnd.map(blog => blog.title);
+    const titles = blogsAtEnd.map((blog) => blog.title);
     expect(titles).toContain(newBlog.title);
   });
   test('without likes property, default to 0', async () => {
@@ -101,10 +104,7 @@ describe('post blog', () => {
       url: 'new blog url',
       likes: 20
     };
-    await api
-      .post('/api/blogs')
-      .send(newBlog)
-      .expect(401);
+    await api.post('/api/blogs').send(newBlog).expect(401);
   });
 });
 
@@ -121,7 +121,7 @@ describe('delete blog', () => {
     const blogsAtEnd = await helper.blogsInDb();
     expect(blogsAtEnd).toHaveLength(blogsAtStart.length - 1);
 
-    const contents = blogsAtEnd.map(blog => blog.title);
+    const contents = blogsAtEnd.map((blog) => blog.title);
     expect(contents).not.toContain(blogToDelete.title);
   });
   test('with invalid id, returns 400', async () => {

@@ -17,10 +17,15 @@ describe('<Blog />', () => {
   };
   const mockEdit = jest.fn();
   const mockRemove = jest.fn();
-  const setup = (username) => render(
-    <Blog blog={blog} username={username}
-      handleEditBlog={mockEdit} handleRemoveBlog={mockRemove} />
-  );
+  const setup = (username) =>
+    render(
+      <Blog
+        blog={blog}
+        username={username}
+        handleEditBlog={mockEdit}
+        handleRemoveBlog={mockRemove}
+      />
+    );
 
   test('renders title and author by default, but not url or likes', () => {
     setup('pepito');

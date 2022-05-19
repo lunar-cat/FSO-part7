@@ -7,12 +7,15 @@ import BlogForm from './BlogForm';
 describe('< BlogForm/>', () => {
   const mockCreate = jest.fn();
   const mockClose = jest.fn();
-  const setup = () => render(
-    < BlogForm handleCreateBlog={mockCreate} closeForm={mockClose} />
-  );
+  const setup = () =>
+    render(<BlogForm handleCreateBlog={mockCreate} closeForm={mockClose} />);
   test('createBlog fn get called with proper args', async () => {
     setup();
-    const mockValues = { title: 'titulo test', author: 'autor test', url: 'url test' };
+    const mockValues = {
+      title: 'titulo test',
+      author: 'autor test',
+      url: 'url test'
+    };
     // input title
     const title = screen.getByLabelText('Title');
     await userEvent.type(title, mockValues.title);
