@@ -1,13 +1,20 @@
-const Togglable = (props) => {
-  if (props.isOpen) {
+import { useSelector, useDispatch } from 'react-redux';
+import { openTogglable, closeTogglable } from '../reducers/togglableReducer';
+
+const Togglable = ({ children, buttonLabel }) => {
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state) => state.togglable);
+  if (isOpen) {
     return (
       <div>
-        {props.children}
-        <button onClick={props.toggleOpen}>cancel</button>
+        {children}
+        <button onClick={() => dispatch(closeTogglable())}>cancel</button>
       </div>
     );
   }
-  return <button onClick={props.toggleOpen}>{props.buttonLabel}</button>;
+  return (
+    <button onClick={() => dispatch(openTogglable())}>{buttonLabel}</button>
+  );
 };
 
 export default Togglable;

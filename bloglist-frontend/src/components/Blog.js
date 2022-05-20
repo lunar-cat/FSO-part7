@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import blogService from '../services/blogs';
+import { useDispatch } from 'react-redux';
+import { editBlog, removeBlog } from '../reducers/blogsReducer';
+import { setNotification } from '../reducers/notificationReducer';
 
 const blogStyle = {
   paddingTop: 10,
@@ -9,19 +13,45 @@ const blogStyle = {
   marginBottom: 5
 };
 
-const Blog = ({ blog, handleEditBlog, handleRemoveBlog, username }) => {
+const Blog = ({ blog, username }) => {
   const [expanded, setExpanded] = useState(false);
   const toggleExpanded = () => setExpanded(!expanded);
-  const increaseLikes = () => {
-    const editedBlog = { likes: blog.likes + 1 };
-    handleEditBlog(editedBlog, { ...blog, likes: blog.likes + 1 });
+  const dispatch = useDispatch();
+
+  const handleEdit = async (blog) => {
+    try {
+      const editedBlog = await blogService.modify({
+        ...blog,
+        likes: blog.likes + 1
+      });
+      dispatch(editBlog(editedBlog));
+    } catch (e) {
+      if (e.message) {
+        console.log(e.message);
+        dispatch(setNotification({ content: e.message, type: 'error' }));
+      }
+    }
   };
-  const removeBlog = async () => {
+  const handleRemove = async (blog) => {
     const confirmMessage = `Remove Blog: ${blog.title} by ${
       blog.author || 'anon'
     }?`;
     if (!window.confirm(confirmMessage)) return;
-    handleRemoveBlog(blog);
+    try {
+      await blogService.remove(blog.id);
+      dispatch(removeBlog(blog));
+      dispatch(
+        setNotification({
+          content: `Removed: ${blog.title} by ${blog.author}`,
+          type: 'success'
+        })
+      );
+    } catch (e) {
+      if (e.message) {
+        console.log(e.message);
+        dispatch(setNotification({ content: e.message, type: 'error' }));
+      }
+    }
   };
   return (
     <div style={blogStyle} data-cy="blog">
@@ -38,13 +68,16 @@ const Blog = ({ blog, handleEditBlog, handleRemoveBlog, username }) => {
           <p>{blog.url}</p>
           <p>
             <span>likes: {blog.likes}</span>
-            <button onClick={increaseLikes} data-cy="blog-like-button">
+            <button onClick={() => handleEdit(blog)} data-cy="blog-like-button">
               like
             </button>
           </p>
           <p>{blog.user.name}</p>
           {blog.user.username === username && (
-            <button onClick={removeBlog} data-cy="blog-remove-button">
+            <button
+              onClick={() => handleRemove(blog)}
+              data-cy="blog-remove-button"
+            >
               remove
             </button>
           )}
@@ -60,14 +93,9 @@ Blog.propTypes = {
     author: PropTypes.string,
     url: PropTypes.string,
     likes: PropTypes.number,
-    user: PropTypes.shape({
-      name: PropTypes.string,
-      username: PropTypes.string.isRequired
-    })
+    user: PropTypes.object
   }),
-  username: PropTypes.string.isRequired,
-  handleEditBlog: PropTypes.func.isRequired,
-  handleRemoveBlog: PropTypes.func.isRequired
+  username: PropTypes.string.isRequired
 };
 
 export default Blog;

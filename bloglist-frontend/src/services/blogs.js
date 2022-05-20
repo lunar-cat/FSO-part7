@@ -33,12 +33,12 @@ const create = async (blog) => {
   }
 };
 
-const modify = async (blog, blogId) => {
+const modify = async (blog) => {
   if (!headers.has('Authorization')) {
     console.log('missing authorization header token');
     return;
   }
-  const response = await fetch(`${baseUrl}/${blogId}`, {
+  const response = await fetch(`${baseUrl}/${blog.id}`, {
     method: 'PUT',
     headers: headers,
     body: JSON.stringify(blog)

@@ -65,6 +65,7 @@ blogsRouter.put('/:id', async (req, res) => {
     { likes },
     { new: true }
   );
+  await updatedBlog.populate('user', { blogs: 0, passwordHash: 0 });
   res.json(updatedBlog);
 });
 

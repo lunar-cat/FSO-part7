@@ -1,18 +1,42 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import blogService from '../services/blogs';
+import { useDispatch } from 'react-redux';
+import { addBlog } from '../reducers/blogsReducer';
+import { setNotification } from '../reducers/notificationReducer';
+import { closeTogglable } from '../reducers/togglableReducer';
 
-const BlogForm = ({ handleCreateBlog, closeForm }) => {
+const BlogForm = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const blog = { title, author, url };
-    handleCreateBlog(blog);
+  const dispatch = useDispatch();
+
+  const cleanInputs = () => {
     setTitle('');
     setAuthor('');
     setUrl('');
-    closeForm();
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const blog = { title, author, url };
+    let message;
+    try {
+      const newBlog = await blogService.create(blog);
+      dispatch(addBlog(newBlog));
+      message = {
+        content: `Created: ${blog.title} by ${blog.author}`,
+        type: 'success'
+      };
+    } catch (e) {
+      if (e.message) {
+        console.log(e.message);
+        message = { content: e.message, type: 'error' };
+      }
+    } finally {
+      dispatch(setNotification(message));
+      cleanInputs();
+      dispatch(closeTogglable());
+    }
   };
   return (
     <section>
@@ -54,10 +78,5 @@ const BlogForm = ({ handleCreateBlog, closeForm }) => {
       </form>
     </section>
   );
-};
-
-BlogForm.propTypes = {
-  handleCreateBlog: PropTypes.func.isRequired,
-  closeForm: PropTypes.func.isRequired
 };
 export default BlogForm;
