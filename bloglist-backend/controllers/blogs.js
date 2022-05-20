@@ -69,4 +69,17 @@ blogsRouter.put('/:id', async (req, res) => {
   res.json(updatedBlog);
 });
 
+blogsRouter.post('/:id/comments', async (req, res) => {
+  const { id } = req.params;
+  const { comment } = req.body;
+  if (!comment) res.json({ error: 'comment has no value' });
+  if (!id) res.json({ error: 'no id defined for adding comment' });
+  const updatedBlog = await Blog.findByIdAndUpdate(
+    id,
+    { $push: { comments: comment } },
+    { upsert: true, new: true }
+  );
+  await updatedBlog.populate('user', { blogs: 0, passwordHash: 0 });
+  res.json(updatedBlog);
+});
 module.exports = blogsRouter;
