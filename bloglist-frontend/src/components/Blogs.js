@@ -1,16 +1,15 @@
-import Blog from './Blog';
+import BlogCard from './BlogCard';
 import BlogForm from './BlogForm';
 import Togglable from './Togglable';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../reducers/userReducer';
 import { setNotification } from '../reducers/notificationReducer';
 import blogService from '../services/blogs';
 import { setBlogs } from '../reducers/blogsReducer';
 
 const Blogs = () => {
   const blogs = useSelector((state) => state.blogs);
-  const username = useSelector((state) => state.user.username);
+  const username = useSelector((state) => state.user.authenticated.username);
   const dispatch = useDispatch();
   // fetch blogs
   useEffect(() => {
@@ -22,20 +21,10 @@ const Blogs = () => {
         console.log(e);
       });
   }, [dispatch]);
-
-  const handleLogout = () => {
-    localStorage.removeItem('logginBlogApp');
-    dispatch(setUser(null));
-    dispatch(setNotification({ content: 'Logged out', type: 'success' }));
-  };
-
+  if (!blogs || !username) return null;
   return (
     <div>
       <h2>Blogs</h2>
-      <p>
-        {username} logged in
-        <button onClick={handleLogout}>Logout</button>
-      </p>
       <Togglable buttonLabel="new note">
         <BlogForm />
       </Togglable>
@@ -43,7 +32,7 @@ const Blogs = () => {
         .slice()
         .sort((a, b) => b.likes - a.likes)
         .map((blog) => (
-          <Blog key={blog.id} blog={blog} username={username} />
+          <BlogCard key={blog.id} blog={blog} />
         ))}
     </div>
   );

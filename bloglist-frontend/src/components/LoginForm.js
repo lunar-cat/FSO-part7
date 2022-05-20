@@ -2,7 +2,7 @@ import { useState } from 'react';
 import loginService from '../services/login';
 import blogService from '../services/blogs';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../reducers/userReducer';
+import { setAuthUser } from '../reducers/userReducer';
 import { setNotification } from '../reducers/notificationReducer';
 
 const LoginForm = () => {
@@ -15,7 +15,7 @@ const LoginForm = () => {
     let message;
     try {
       const user = await loginService.login(username, password);
-      dispatch(setUser(user));
+      dispatch(setAuthUser(user));
       blogService.setToken(user.token);
       localStorage.setItem('logginBlogApp', JSON.stringify(user));
       message = {
