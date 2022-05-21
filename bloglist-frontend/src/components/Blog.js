@@ -4,6 +4,19 @@ import { editBlog } from '../reducers/blogsReducer';
 import blogService from '../services/blogs';
 import { setNotification } from '../reducers/notificationReducer';
 
+const Comments = ({ blog }) => {
+  return (
+    <div>
+      <h3>Comments</h3>
+      <ul>
+        {blog.comments.map((comment, idx) => {
+          return <li key={idx}>{comment}</li>;
+        })}
+      </ul>
+    </div>
+  );
+};
+
 const Blog = () => {
   const dispatch = useDispatch();
   const { id } = useMatch('/blogs/:id').params;
@@ -35,6 +48,7 @@ const Blog = () => {
         </button>
       </p>
       <p>added by {blog.user.username}</p>
+      {blog.comments && <Comments blog={blog} />}
     </div>
   );
 };
