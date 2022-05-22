@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setNotification } from '../reducers/notificationReducer';
 import blogService from '../services/blogs';
 import { setBlogs } from '../reducers/blogsReducer';
+import './Blogs.css';
 
 const Blogs = () => {
   const blogs = useSelector((state) => state.blogs);
@@ -23,9 +24,9 @@ const Blogs = () => {
   }, [dispatch]);
   if (!blogs || !username) return null;
   return (
-    <div>
+    <div className="blogs">
       <h2>Blogs</h2>
-      <Togglable buttonLabel="new note">
+      <Togglable buttonLabel="new entry">
         <BlogForm />
       </Togglable>
       {blogs

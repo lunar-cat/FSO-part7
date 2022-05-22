@@ -21,7 +21,7 @@ const create = async (blog) => {
   }
   const response = await fetch(baseUrl, {
     method: 'POST',
-    headers: headers,
+    headers,
     body: JSON.stringify(blog)
   });
   if (response.ok) {
@@ -40,7 +40,7 @@ const modify = async (blog) => {
   }
   const response = await fetch(`${baseUrl}/${blog.id}`, {
     method: 'PUT',
-    headers: headers,
+    headers,
     body: JSON.stringify(blog)
   });
   if (response.ok) {
@@ -59,7 +59,7 @@ const remove = async (blogId) => {
   }
   const response = await fetch(`${baseUrl}/${blogId}`, {
     method: 'DELETE',
-    headers: headers
+    headers
   });
   if (!response.ok) {
     const { error } = await response.json();
@@ -68,5 +68,20 @@ const remove = async (blogId) => {
   }
 };
 
-const blogService = { create, getAll, setToken, modify, remove };
+const addComment = async (comment, blogId) => {
+  const response = await fetch(`${baseUrl}/${blogId}/comments`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ comment })
+  });
+  if (response.ok) {
+    return response.json();
+  } else {
+    const { error } = await response.json();
+    if (error) throw new Error(error);
+    else throw new Error(response.statusText);
+  }
+};
+
+const blogService = { create, getAll, setToken, modify, remove, addComment };
 export default blogService;

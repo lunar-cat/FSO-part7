@@ -1,10 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { setAuthUser } from '../reducers/userReducer';
 import { setNotification } from '../reducers/notificationReducer';
+import './Nav.css';
 
 const Nav = () => {
   const dispatch = useDispatch();
+  const loc = useLocation();
   const user = useSelector((state) => state.user.authenticated);
   const handleLogout = () => {
     localStorage.removeItem('logginBlogApp');
@@ -13,11 +15,27 @@ const Nav = () => {
   };
   return (
     <nav>
-      <Link to={'blogs'}>Blogs</Link>
-      <Link to={'users'}>Users</Link>
+      <Link
+        to={'blogs'}
+        className={
+          loc.pathname.startsWith('/blogs') || loc.pathname === '/'
+            ? 'active'
+            : null
+        }
+      >
+        Blogs
+      </Link>
+      <Link
+        to={'users'}
+        className={loc.pathname.startsWith('/users') ? 'active' : null}
+      >
+        Users
+      </Link>
 
-      <p>{user.name || user.username} logged in</p>
-      <button type="button" onClick={handleLogout}>
+      <p style={{ fontStyle: 'italic' }}>
+        {user.name || user.username} logged in
+      </p>
+      <button type="button" onClick={handleLogout} className="warning">
         logout
       </button>
     </nav>

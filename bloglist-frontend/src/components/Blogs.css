@@ -1,0 +1,34 @@
+.blogs,
+.blog {
+  width: 40rem;
+  max-width: 100%;
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+.blog-card > p > a:hover,
+.blog-card > p > a:active {
+  color: #dc3f90;
+}
+.blog-card span {
+  word-break: break-all;
+}
+.blog-card span:last-of-type {
+  color: #dc3f90;
+  font-style: italic;
+  display: block;
+  font-size: 1rem;
+}
+.blog .likes {
+  color: #dc3f90;
+}
+.blog .url {
+  font-style: italic;
+  font-size: 1rem;
+}
+.blog .author {
+  font-size: 1rem;
+}
+.blog .comment {
+  font-size: 1.1rem;
+  padding-bottom: 1rem;
+}

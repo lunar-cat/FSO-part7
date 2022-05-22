@@ -11,6 +11,7 @@ import Users from './components/Users';
 import User from './components/User';
 import Blog from './components/Blog';
 import Nav from './components/Nav';
+import './App.css';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -33,15 +34,14 @@ const App = () => {
 
   if (user === null) {
     return (
-      <>
-        <Notification />
+      <div className="container">
         <LoginForm />
-      </>
+        <Notification />
+      </div>
     );
   }
   return (
-    <>
-      <Notification />
+    <div className="container">
       <Nav />
       <Routes>
         <Route path="/" element={<Blogs />} />
@@ -50,7 +50,8 @@ const App = () => {
         <Route path="blogs" element={<Blogs />} />
         <Route path="blogs/:id" element={<Blog />} />
       </Routes>
-    </>
+      <Notification />
+    </div>
   );
 };
 

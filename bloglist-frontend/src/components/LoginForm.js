@@ -35,8 +35,8 @@ const LoginForm = () => {
     }
   };
   return (
-    <div>
-      <h2>Log in to application</h2>
+    <div style={{ width: '35%', minWidth: '330px' }}>
+      <h2 style={{ textAlign: 'center' }}>Log in</h2>
       <form onSubmit={handleLogin} data-cy="login-form">
         <div>
           <label htmlFor="username">Username</label>

@@ -2,11 +2,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const BlogCardStyle = {
-  paddingTop: 10,
-  paddingLeft: 2,
-  border: 'solid',
-  borderWidth: 1,
-  marginBottom: 5
+  padding: 1
 };
 
 const BlogCard = ({ blog }) => {
@@ -34,15 +30,18 @@ const BlogCard = ({ blog }) => {
   }; 
   */
   return (
-    <div style={BlogCardStyle} data-cy="blog">
+    <article style={BlogCardStyle} data-cy="blog" className="blog-card">
       <p>
         <Link to={`/blogs/${blog.id}`}>
-          <span>{blog.title}</span>
-          <span> by </span>
+          <span>
+            {blog.title.length <= 30
+              ? blog.title
+              : `${blog.title.slice(0, 30)}...`}
+          </span>
           <span>{blog.author || 'anon'}</span>
         </Link>
       </p>
-    </div>
+    </article>
   );
 };
 

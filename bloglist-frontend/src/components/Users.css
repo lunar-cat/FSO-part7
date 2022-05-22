@@ -1,0 +1,24 @@
+.users,
+.user {
+  width: 40rem;
+  max-width: 100%;
+  padding: 1rem;
+}
+table {
+  width: 100%;
+  font-size: 1.2rem;
+}
+th,
+td:last-of-type {
+  text-align: center;
+  color: #dc3f90;
+}
+td {
+  text-align: start;
+}
+.blog-list-item {
+  text-align: end;
+  font-size: 1.2rem;
+  word-break: break-all;
+  padding-bottom: 0.5rem;
+}

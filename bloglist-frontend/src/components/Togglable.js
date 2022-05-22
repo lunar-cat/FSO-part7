@@ -6,9 +6,15 @@ const Togglable = ({ children, buttonLabel }) => {
   const isOpen = useSelector((state) => state.togglable);
   if (isOpen) {
     return (
-      <div>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         {children}
-        <button onClick={() => dispatch(closeTogglable())}>cancel</button>
+        <button
+          onClick={() => dispatch(closeTogglable())}
+          className={'warning'}
+          style={{ marginTop: '1rem', alignSelf: 'center' }}
+        >
+          cancel
+        </button>
       </div>
     );
   }

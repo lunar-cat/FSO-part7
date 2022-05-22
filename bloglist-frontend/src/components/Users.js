@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import userService from '../services/users';
 import { setUsers } from '../reducers/userReducer';
+import './Users.css';
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -12,13 +13,13 @@ const Users = () => {
     userService.getAll().then((users) => dispatch(setUsers(users)));
   }, [dispatch]);
   return (
-    <div>
+    <div className="users">
       <h2>Users</h2>
       <table>
         <thead>
           <tr>
             <th colSpan={1}></th>
-            <th colSpan={2}>blogs created</th>
+            <th colSpan={2}>Blogs created</th>
           </tr>
         </thead>
         <tbody>

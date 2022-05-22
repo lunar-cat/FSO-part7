@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.error {
+  color: #ff0077;
+  font-size: 1.2em;
+}
+.success {
+  color: #3be13b;
+  font-size: 1.2em;
+}
+.note {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 85%;
+  max-width: 45rem;
+  text-align: center;
+}
